@@ -3,7 +3,7 @@ from django.shortcuts import render
 from .models import Articulo
 
 from django.shortcuts import render, redirect
-from .forms import ArticleForm
+from .forms import ArticuloForm
 
 
 # Create your views here.
@@ -25,16 +25,48 @@ def index(request):
 
 def create(request):
     if request.method == 'POST':
-        form = ArticleForm(request.POST)
+        form = ArticuloForm(request.POST)
         if form.is_valid():
-            article = Articulo(titulo=form.cleaned_data['titulo'], contenido=form.cleaned_data['contenido'])
-            article.save()
+            articulo = Articulo(titulo=form.cleaned_data['titulo'], contenido=form.cleaned_data['contenido'])
+            articulo.save()
             return redirect('index')
     else:
-        form = ArticleForm()
+        form = ArticuloForm()
 
     return render(request, 'blog/create.html', {'form': form})
     #     request.method == 'POST': Verifica si el formulario fue enviado.
     # form.is_valid(): Comprueba que los datos del formulario sean correctos.
-    # article.save(): Guarda los datos en la base de datos.
+    # articulo.save(): Guarda los datos en la base de datos.
     # redirect('index'): Redirige al usuario a la página principal después de guardar.
+
+
+def detail(request, articulo_id):  # --- 1
+    articulo = Articulo.objects.get(id=articulo_id)  # --- 2
+    params = {
+        'articulo': articulo,  # Pasamos el artículo al contexto para la plantilla
+    }
+    return render(request, 'blog/detail.html', params)  # Renderizamos la plantilla 'detail.html'
+
+def edit(request, article_id):
+    # Obtener el artículo por su id
+    articulo = Articulo.objects.get(id=article_id)
+    
+    # Verificar si el método de la solicitud es POST (cuando se envían datos)
+    if request.method == 'POST':
+        # Actualizar los campos del artículo con los datos enviados en el formulario
+        articulo.titulo = request.POST['titulo']
+        articulo.contenido = request.POST['contenido']
+        articulo.save()  # Guardar los cambios
+        return redirect('detail', article_id)  # Redirigir a la vista de detalle del artículo editado
+    
+    else:
+        # Si no es POST, se muestra el formulario con los datos actuales del artículo
+        form = ArticuloForm(initial={
+            'titulo': articulo.titulo,
+            'contenido': articulo.contenido,
+        })
+        params = {
+            'articulo': articulo,  # Pasar el artículo a la plantilla
+            'form': form,  # Pasar el formulario con los datos iniciales
+        }
+        return render(request, 'blog/edit.html', params)  # Renderizar la plantilla para editar
