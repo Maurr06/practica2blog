@@ -1,4 +1,6 @@
 from django.http import HttpResponse
+from django.shortcuts import render
+from blog.models import Articulo
 
 # Create your views here.
 def HolaMundo(request):
@@ -9,3 +11,10 @@ def Auxiliar1(request):
 
 def Auxiliar2(request):
     return HttpResponse('<h3>Hola Munditito.</h3>')
+
+def index(request):
+    articulos = Articulo.objects.all()  # --- 2
+    params = {  # --- 3
+        'articulos': articulos,
+    }
+    return render(request, 'blog/index.html', params)  # --- 4

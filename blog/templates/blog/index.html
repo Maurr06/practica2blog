@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Blog App</title>
+</head>
+<body>
+    <h1>Blogs</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Contenido</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for articulo in articulos %}  <!-- 1 -->
+            <tr>
+                <td>{{ articulo.titulo }}</td>  <!-- 2 -->
+                <td>{{ articulo.contenido }}</td>  <!-- 2 -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
