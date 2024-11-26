@@ -22,8 +22,9 @@ from blog import views, urls
 # Include() importa URLS internas propias de la app. 
 # Hay que crear urls.py en la app, y crear otra lista urlpatterns con las URL internas.
 urlpatterns = [
+    path('', views.index),
     path('admin/', admin.site.urls),        #localhost/admin
-    path('blog/', views.index),
     path('HolaMundo/', views.HolaMundo),    #localhost/HolaMundo/
-    path('otros/', include('blog.urls'))    #localhost/otros/auxiliar1  ;   #localhost/otros/auxiliar2
+    path('otros/', include('blog.urls')),   #localhost/otros/auxiliar1  ;   #localhost/otros/auxiliar2
+    path('__debug__/', include('debug_toolbar.urls')),
 ]

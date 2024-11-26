@@ -16,7 +16,7 @@
     </p>
     <form action="{% url 'delete' articulo.id %}" method="post">
         {% csrf_token %}
-        <input type="submit" value="Delete">
+        <input type="submit" value="Borrar">
     </form>
     <br>
     <a href="{% url 'index' %}">Atras</a>

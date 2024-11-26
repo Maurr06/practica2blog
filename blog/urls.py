@@ -10,6 +10,3 @@ urlpatterns = [
     path('edit/<int:articulo_id>/', views.edit, name='edit'),  # Agregado el '/' al final
     path('delete/<int:articulo_id>', views.delete, name='delete'),
 ]
-
-from django.urls import path
-from . import views
