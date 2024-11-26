@@ -47,9 +47,9 @@ def detail(request, articulo_id):  # --- 1
     }
     return render(request, 'blog/detail.html', params)  # Renderizamos la plantilla 'detail.html'
 
-def edit(request, article_id):
+def edit(request, articulo_id):
     # Obtener el artículo por su id
-    articulo = Articulo.objects.get(id=article_id)
+    articulo = Articulo.objects.get(id=articulo_id)
     
     # Verificar si el método de la solicitud es POST (cuando se envían datos)
     if request.method == 'POST':
@@ -57,7 +57,7 @@ def edit(request, article_id):
         articulo.titulo = request.POST['titulo']
         articulo.contenido = request.POST['contenido']
         articulo.save()  # Guardar los cambios
-        return redirect('detail', article_id)  # Redirigir a la vista de detalle del artículo editado
+        return redirect('detail', articulo_id)  # Redirigir a la vista de detalle del artículo editado
     
     else:
         # Si no es POST, se muestra el formulario con los datos actuales del artículo
@@ -70,3 +70,15 @@ def edit(request, article_id):
             'form': form,  # Pasar el formulario con los datos iniciales
         }
         return render(request, 'blog/edit.html', params)  # Renderizar la plantilla para editar
+
+def delete(request, articulo_id):
+    articulo = Articulo.objects.get(id=articulo_id)
+    
+    if request.method == 'POST':
+        articulo.delete()
+        return redirect('index')
+    else:
+        params = {
+            'articulo': articulo,
+        }
+        return render(request, 'blog/delete.html', params)

@@ -7,7 +7,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('create/', views.create, name='create'),
     path('detail/<int:articulo_id>', views.detail, name='detail'),  # Ruta para la vista de detalles con un parámetro dinámico 'articulo_id'
-    path('edit/<int:article_id>/', views.edit, name='edit'),  # Agregado el '/' al final
+    path('edit/<int:articulo_id>/', views.edit, name='edit'),  # Agregado el '/' al final
+    path('delete/<int:articulo_id>', views.delete, name='delete'),
 ]
 
 from django.urls import path

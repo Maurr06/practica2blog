@@ -35,9 +35,12 @@
                                     <a href="{% url 'detail' articulo.id %}">Detalles</a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'edit' articulo.id %}">Edit</a>
+                                    <a href="{% url 'edit' articulo.id %}">Editar</a>
                                 </td>
                                 <!-- Enlace a la vista de detalle -->
+                                <td>
+                                    <a href="{% url 'delete' articulo.id %}">Eliminar</a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
